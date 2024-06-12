@@ -1,5 +1,5 @@
-def frontendImage = "xurse9/panda-training:panda_front"
-def backendImage = "xurse9/panda-training:panda_back" 
+def frontendImage = "pandaacademy/frontend"
+def backendImage = "pandaacademy/backend"
 
 pipeline {
     agent {
