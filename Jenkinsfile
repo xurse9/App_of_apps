@@ -6,8 +6,8 @@ pipeline {
       label 'agent'
     }
     parameters {
-        string defaultValue: 'latest', description: 'test', name: 'backendDockerTag'
-        string defaultValue: 'latest', description: 'test', name: 'frontendDockerTag'
+        string defaultValue: 'latest', description: 'description', name: 'backendDockerTag'
+        string defaultValue: 'latest', description: 'description', name: 'frontendDockerTag'
     }
     stages {
         stage('Get code') {
@@ -19,6 +19,21 @@ pipeline {
             steps {
                 script {
                     currentBuild.description = "Backend: ${backendDockerTag}, Frontend ${frontendDockerTag}"
+                }
+            }
+        }
+        stage('Clean running containers') {
+            steps {
+                sh "docker rm -f frontend backend"
+            }
+        }
+        stage('Deploy application') {
+            steps {
+                script {
+                    withEnv(["FRONTEND_IMAGE=$frontendImage:$frontendDockerTag", 
+                             "BACKEND_IMAGE=$backendImage:$backendDockerTag"]) {
+                            sh "docker-compose up -d"
+                    }
                 }
             }
         }
