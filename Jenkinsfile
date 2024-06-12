@@ -1,16 +1,14 @@
-def frontendImage = "xurse9/panda-training"
-def backendImage = "xurse9/panda-training" 
+def frontendImage = "xurse9/panda-frontend"
+def backendImage = "xurse9/panda-backend" 
 
 pipeline {
     agent {
       label 'agent'
     }
-
     parameters {
-    string defaultValue: 'panda_back', description: 'test', name: 'backendDockerTag'
-    string defaultValue: 'panda_front', description: 'test', name: 'frontendDockerTag'
+        string defaultValue: 'latest', description: 'test', name: 'backendDockerTag'
+        string defaultValue: 'latest', description: 'test', name: 'frontendDockerTag'
     }
-
     stages {
         stage('Get code') {
             steps {
@@ -20,7 +18,7 @@ pipeline {
         stage('Adjust version') {
             steps {
                 script {
-                    currentBuild.description = "Backend: ${}, Frontend ${frontendDockerTag}"
+                    currentBuild.description = "Backend: ${backendDockerTag}, Frontend ${frontendDockerTag}"
                 }
             }
         }
