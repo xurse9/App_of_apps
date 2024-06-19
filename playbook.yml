@@ -1,9 +1,9 @@
 ---
 - name: Deploy app
   hosts: all
-  connection: local
+  #connection: local
   become: true
-  become_user: root
+  #become_user: root
   vars:
     deployment_path: '/home/ubuntu/app'
     compose_path: './docker-compose.yml'
