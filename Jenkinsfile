@@ -52,7 +52,7 @@ pipeline {
         stage('Run terraform') {
             steps {
                 dir('Terraform') {                
-                    git branch: 'master', url: 'https://github.com/Panda-Academy-Core-2-0/Terraform'
+                    git branch: 'master', url: 'https://github.com/xurse9/Terraform'
                     withAWS(credentials:'AWS', region: 'us-east-1') {
                         sh 'terraform init -backend-config=bucket=mateusz-niewitala-panda-devops-core-18'
                         sh 'terraform apply -auto-approve -var bucket_name=mateusz-niewitala-panda-devops-core-18'    
